@@ -24,6 +24,14 @@ class ServerForm
                 TextInput::make('max_connection')->label('Max Connection ')->columnSpan(2),
                 Textarea::make('ovpn')->label('OVPN ')->columnSpan(2),
 
+                TextInput::make('ss_password')->label('Shadowsocks Password')->password()->revealable(),
+                TextInput::make('ss_port')->label('Shadowsocks Port')->numeric()->default(8388),
+                Select::make('ss_method')->label('Shadowsocks Encryption Method')->options([
+                    'chacha20-ietf-poly1305' => 'chacha20-ietf-poly1305',
+                    'aes-256-gcm' => 'aes-256-gcm',
+                    'aes-128-gcm' => 'aes-128-gcm',
+                ])->default('chacha20-ietf-poly1305'),
+
                 Toggle::make('ispro')->label('Is Premium ')->default(false),
                 Toggle::make('status')->label('Status ')->default(true),
                 Toggle::make('is_recommended')->label('Recommended ')->default(true),

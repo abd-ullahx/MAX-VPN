@@ -26,7 +26,29 @@ class Server extends Model
         'username',
         'password',
         'count_updated_at',
+        'ss_password',
+        'ss_port',
+        'ss_method',
+        'last_seen_at',
+        'vpn_status',
     ];
+
+    protected $hidden = [
+        'ss_password',
+    ];
+
+    protected $casts = [
+        'last_seen_at' => 'datetime',
+    ];
+
+    protected static function booted()
+    {
+        static::saved(function ($server) {
+            \Illuminate\Support\Facades\Cache::forget('free_servers_list');
+            \Illuminate\Support\Facades\Cache::forget('premium_servers_list');
+            \Illuminate\Support\Facades\Cache::forget('recommended_servers_list');
+        });
+    }
 
     public function getCertificateAttribute()
     {
